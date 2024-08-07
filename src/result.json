@@ -1,0 +1,46 @@
+{
+    "coord": {
+        "lon": 72.8437,
+        "lat": 19.0177
+    },
+    "weather": [
+        {
+            "id": 721,
+            "main": "Haze",
+            "description": "haze",
+            "icon": "50n"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 28.01,
+        "feels_like": 32.6,
+        "temp_min": 28.01,
+        "temp_max": 28.01,
+        "pressure": 1000,
+        "humidity": 83,
+        "sea_level": 1000,
+        "grnd_level": 999
+    },
+    "visibility": 2200,
+    "wind": {
+        "speed": 4.63,
+        "deg": 230,
+        "gust": 9.77
+    },
+    "clouds": {
+        "all": 100
+    },
+    "dt": 1720215053,
+    "sys": {
+        "type": 1,
+        "id": 9052,
+        "country": "IN",
+        "sunrise": 1720226175,
+        "sunset": 1720273810
+    },
+    "timezone": 19800,
+    "id": 1275339,
+    "name": "Mumbai",
+    "cod": 200
+}
