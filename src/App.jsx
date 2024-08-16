@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
+const apiId = import.meta.env.VITE_API_KEY;
 function App() {
-  const apiId = import.meta.env.API_KEY;
   const [time, setTime] = useState(new Date().toLocaleTimeString());
-  // setInterval(setTime(new Date().toLocaleTimeString()), 1000);
   const [data, setData] = useState({
     coord: {
       lon: 72.8437,
@@ -51,31 +50,33 @@ function App() {
     name: "Mumbai",
     cod: 200,
   });
+
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      if (navigator.geolocation) {
+        // console.log(apiId);
+        navigator.geolocation.getCurrentPosition(async (position) => {
+          try {
+            const response = await axios.get(
+              `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiId}&units=metric`
+            );
+            setData(response.data);
+            // console.log(response.data);
+            // console.log(apiId);
+          } catch (error) {
+            console.log("Error fetching weather data");
+          }
+        });
+      } else {
+        console.log("Geolocation is not supported by this browser.");
+      }
+    };
+    fetchWeatherData();
+  }, []);
+
   useEffect(() => {
     setInterval(() => setTime(new Date().toLocaleTimeString(), 1000));
   });
-  useEffect(() => {
-    () => populate();
-  });
-  function populate() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        try {
-          const response = await axios.get(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${Enter_your_api_id}&units=metric`
-          );
-          const result = response.data;
-          setData(result);
-          console.log(result);
-          console.log(apiId);
-        } catch (error) {
-          console.error(error.message);
-        }
-      });
-    } else {
-      console.log("Geolocation is not supported by this browser.");
-    }
-  }
 
   return (
     <div className="big-container">
@@ -159,13 +160,6 @@ function App() {
                   ? "Good Afternoon"
                   : "Good Morning"}
               </p>
-
-              {/* <p className="right-flex-top-heading">
-                {new Date().toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </p> */}
               <p className="right-flex-top-heading">{time}</p>
 
               <div className="right-flex-top-gridcontainer">
